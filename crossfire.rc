@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# PROVIDE: crossfire
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name=crossfire
+rcvar=crossfire_enable
+
+load_rc_config $name
+
+: ${crossfire_enable="NO"}
+
+pidfile="/var/run/${name}.pid"
+procname=/usr/games/crossfire/bin/crossfire-server
+command=/usr/sbin/daemon
+command_args="-f -p ${pidfile} -u crossfire ${procname} --home=/usr/games/crossfire --logfile=default"
+
+run_rc_command "$1"
